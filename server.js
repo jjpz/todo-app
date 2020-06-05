@@ -15,8 +15,7 @@ let connectionString =
 	'mongodb+srv://todoAppUser:hpgjHo5MjA4JlSt7@cluster0-iu9qg.mongodb.net/TodoApp?retryWrites=true&w=majority';
 
 mongodb.connect(
-	connectionString,
-	{
+	connectionString, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	},
@@ -77,7 +76,7 @@ app.get('/', function (request, response) {
         
         <script>let items = ${JSON.stringify(items)};</script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="/client.js"></script>
+        <script src="/client.min.js"></script>
         
       </body>
       </html>
@@ -90,8 +89,7 @@ app.post('/create-item', function (request, response) {
 		allowedTags: [],
 		allowedAttributes: {},
 	});
-	db.collection('items').insertOne(
-		{
+	db.collection('items').insertOne({
 			text: safeText,
 		},
 		function (error, info) {
@@ -105,11 +103,9 @@ app.post('/update-item', function (request, response) {
 		allowedTags: [],
 		allowedAttributes: {},
 	});
-	db.collection('items').findOneAndUpdate(
-		{
+	db.collection('items').findOneAndUpdate({
 			_id: new mongodb.ObjectId(request.body.id),
-		},
-		{
+		}, {
 			$set: {
 				text: safeText,
 			},
@@ -121,8 +117,7 @@ app.post('/update-item', function (request, response) {
 });
 
 app.post('/delete-item', function (request, response) {
-	db.collection('items').deleteOne(
-		{
+	db.collection('items').deleteOne({
 			_id: new mongodb.ObjectId(request.body.id),
 		},
 		function () {
