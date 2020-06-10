@@ -1,4 +1,6 @@
 const express = require('express');
+const dotenv = require('dotenv');
+dotenv.config();
 const mongodb = require('mongodb');
 const sanitizeHTML = require('sanitize-html');
 const app = express();
@@ -11,11 +13,11 @@ if (port == null || port == '') {
 
 app.use(express.static('public'));
 
-let connectionString =
-	'mongodb+srv://todoAppUser:hpgjHo5MjA4JlSt7@cluster0-iu9qg.mongodb.net/TodoApp?retryWrites=true&w=majority';
+//let connectionString = '';
 
 mongodb.connect(
-	connectionString, {
+	process.env.CONNECTIONSTRING,
+	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	},
@@ -89,7 +91,8 @@ app.post('/create-item', function (request, response) {
 		allowedTags: [],
 		allowedAttributes: {},
 	});
-	db.collection('items').insertOne({
+	db.collection('items').insertOne(
+		{
 			text: safeText,
 		},
 		function (error, info) {
@@ -103,9 +106,11 @@ app.post('/update-item', function (request, response) {
 		allowedTags: [],
 		allowedAttributes: {},
 	});
-	db.collection('items').findOneAndUpdate({
+	db.collection('items').findOneAndUpdate(
+		{
 			_id: new mongodb.ObjectId(request.body.id),
-		}, {
+		},
+		{
 			$set: {
 				text: safeText,
 			},
@@ -117,7 +122,8 @@ app.post('/update-item', function (request, response) {
 });
 
 app.post('/delete-item', function (request, response) {
-	db.collection('items').deleteOne({
+	db.collection('items').deleteOne(
+		{
 			_id: new mongodb.ObjectId(request.body.id),
 		},
 		function () {
