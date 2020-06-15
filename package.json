@@ -12,9 +12,8 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
-		"gulp-rename": "^2.0.0",
-		"jshint": "^2.11.1",
 		"mongodb": "^3.5.8",
 		"nodemon": "^2.0.4",
 		"sanitize-html": "^1.26.0"
@@ -24,6 +23,7 @@
 		"@babel/preset-env": "^7.10.2",
 		"gulp": "^4.0.2",
 		"gulp-babel": "^8.0.0",
+		"gulp-rename": "^2.0.0",
 		"gulp-uglify": "^3.0.2",
 		"gulp-uglify-es": "^2.0.0"
 	}
